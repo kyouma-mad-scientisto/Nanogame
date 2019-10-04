@@ -77,7 +77,8 @@ class shiftRegButton {
 //  volatile bool buttonsCycle[numberOfButtons];      //flags to represent if a button did a whole hi-lo-hi cycle,      clearing needed
   volatile uint16_t buttonsCycle;      //flags to represent if a button did a whole hi-lo-hi cycle,      clearing needed
   uint8_t buttonsTime[numberOfButtons];    //the time in milliseconds a button was actually pressed,      no clearing needed, no overflow detection (max = 255ms)
-  volatile bool cycleFlag[numberOfButtons];
+//  volatile bool cycleFlag[numberOfButtons];
+  volatile uint16_t cycleFlag;
 };
 
 #endif

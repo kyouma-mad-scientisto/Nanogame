@@ -17,10 +17,14 @@
   for(uint8_t i = 0; i < numberOfButtons; i++, shiftClk()) {
  //  buttonsPressed[i] = false;   
  //  buttonsCycle[i] = false;  
+ 
    buttonsTime[i] = 0;
-   cycleFlag[i] = false;
+//   cycleFlag[i] = false;
    //init shiftreg outputs to all 1's
   }
+   buttonsPressed = 0;   
+   buttonsCycle = 0;
+   cycleFlag = 0;
  }
 
  shiftRegButton::checkButtons(void) {
@@ -34,7 +38,8 @@
     if(buttonsInput()) {
       buttonsPressed |= 1 << i;
      // buttonsPressed[i] = true;
-      cycleFlag[i] = true;
+     // cycleFlag[i] = true;
+      cycleFlag |= 1 << i;
       buttonsTime[i]++;
     } else {
      //  buttonsPressed[i] = false;
@@ -53,10 +58,11 @@
  
  shiftRegButton::checkButtonCycle(uint8_t n) {
 //  if(!buttonsPressed[n] && cycleFlag[n]) {
-  if(!(buttonsPressed & (1 << n)) && cycleFlag[n]) {
+  if(!(buttonsPressed & (1 << n)) && (cycleFlag & (1 << n)) ) {
 //   buttonsCycle[n] = true;
    buttonsCycle |= 1 << n;
-   cycleFlag[n] = false;
+//   cycleFlag[n] = false;
+   cycleFlag &= ~(1 << n);
   }
  }
  
