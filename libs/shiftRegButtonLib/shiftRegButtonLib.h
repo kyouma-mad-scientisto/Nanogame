@@ -71,8 +71,11 @@ class shiftRegButton {
 
  private:
    
-  volatile bool buttonsPressed[numberOfButtons];    //flags to represent the actual (debounced) state of a button, no clearing needed 
-  volatile bool buttonsCycle[numberOfButtons];      //flags to represent if a button did a whole hi-lo-hi cycle,      clearing needed
+//  volatile bool buttonsPressed[numberOfButtons];    //flags to represent the actual (debounced) state of a button, no clearing needed 
+  volatile uint16_t buttonsPressed;		      //flags to represent the actual (debounced) state of a button, no clearing needed
+
+//  volatile bool buttonsCycle[numberOfButtons];      //flags to represent if a button did a whole hi-lo-hi cycle,      clearing needed
+  volatile uint16_t buttonsCycle;      //flags to represent if a button did a whole hi-lo-hi cycle,      clearing needed
   uint8_t buttonsTime[numberOfButtons];    //the time in milliseconds a button was actually pressed,      no clearing needed, no overflow detection (max = 255ms)
   volatile bool cycleFlag[numberOfButtons];
 };

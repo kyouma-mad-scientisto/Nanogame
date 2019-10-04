@@ -15,8 +15,8 @@
   //init all flags
   shiftDatHi;
   for(uint8_t i = 0; i < numberOfButtons; i++, shiftClk()) {
-   buttonsPressed[i] = false;   
-   buttonsCycle[i] = false;  
+ //  buttonsPressed[i] = false;   
+ //  buttonsCycle[i] = false;  
    buttonsTime[i] = 0;
    cycleFlag[i] = false;
    //init shiftreg outputs to all 1's
@@ -32,11 +32,13 @@
   for(uint8_t i = 0; i < numberOfButtons; i++, shiftClk()) {
     //is button i actually pressed?
     if(buttonsInput()) {
-      buttonsPressed[i] = true;
+      buttonsPressed |= 1 << i;
+     // buttonsPressed[i] = true;
       cycleFlag[i] = true;
       buttonsTime[i]++;
     } else {
-       buttonsPressed[i] = false;
+     //  buttonsPressed[i] = false;
+       buttonsPressed &= ~(1 << i);
        buttonsTime[i] = 0;
     }
     checkButtonCycle(i);
@@ -45,26 +47,32 @@
  }
 
  bool shiftRegButton::checkButton(uint8_t n) {
-  return buttonsPressed[n];
+//  return buttonsPressed[n];
+  return buttonsPressed & (1 << n);
  }
  
  shiftRegButton::checkButtonCycle(uint8_t n) {
-  if(!buttonsPressed[n] && cycleFlag[n]) {
-   buttonsCycle[n] = true;
+//  if(!buttonsPressed[n] && cycleFlag[n]) {
+  if(!(buttonsPressed & (1 << n)) && cycleFlag[n]) {
+//   buttonsCycle[n] = true;
+   buttonsCycle |= 1 << n;
    cycleFlag[n] = false;
   }
  }
  
  shiftRegButton::clearButton(uint8_t buttonToBeCleared) {
-   buttonsCycle[buttonToBeCleared] = false;
+//   buttonsCycle[buttonToBeCleared] = false;
+   buttonsCycle &= ~(1 << buttonToBeCleared);
  }
  
  shiftRegButton::clearAllButtons() {
   for(uint8_t i = 0; i < numberOfButtons; i++) {  
-   buttonsCycle[i] = false;
+//   buttonsCycle[i] = false;
+   buttonsCycle &= ~(1 << i);
   }
  }
 
  bool shiftRegButton::getButtonCycle(uint8_t n) {
-   return buttonsCycle[n];
+//   return buttonsCycle[n];
+   return buttonsCycle & (1 << n);
  }

@@ -2,6 +2,7 @@
 #include <PCD8544_SPI.h>
 #include <shiftRegButtonLib.h>
 #include <myInterrupts.h>
+#include "DFRobotDFPlayerMini.h"
 
 #define CLR_BIT(p,n) ((p) &= ~((1) << (n)))
 #define SET_BIT(p,n) ((p) |= (1 << (n)))
@@ -17,3 +18,4 @@ volatile PCD8544_SPI_FB lcd;
 volatile myInterrupts Timer2;
 volatile myInterrupts pwmBL;
 volatile shiftRegButton tasten;
+DFRobotDFPlayerMini myDFPlayer;

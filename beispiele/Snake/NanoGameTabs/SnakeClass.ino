@@ -15,6 +15,11 @@
 #define Y_RESOLUTION Y_LCD_RESOLUTION / BLOCK_SIZE    // 48 / 3  = 16
 
 #define VERIFICATION 0xff234597           //testen, ob bereits in den EEPROM geschrieben wurde
+//AUDIO
+#define INTRO 1
+#define THEME 2
+#define END 3
+
 //############################################################################################################################################################################
 class Snake {
   private:
@@ -69,6 +74,9 @@ class Snake {
   }
 //Spiel vorbei
   gameOver() {
+    myDFPlayer.stop();
+    myDFPlayer.volume(24);  //Set volume value. From 0 to 30
+    myDFPlayer.play(END);
     clearField();
     printField();
     lcd.printOut("Game over!", 1, 11);
@@ -106,9 +114,11 @@ class Snake {
     moveTime = 0;
 //LCD loeschen und von vorn
     lcd.clear(false);
-    lcd.writeRect(0,6,82,11,false);
-    lcd.printOut("Druecke Start",2, 2);
-    lcd.renderLine();
+    lcd.printOut("Druecke Start",2, 3);
+    lcd.writeRect(0,6,83,11,false);
+    lcd.renderLine(); 
+    myDFPlayer.volume(30);  //Set volume value. From 0 to 30
+    myDFPlayer.loop(INTRO);
     while(!tasten.getButtonCycle(buttonStart)) {
     }
     randomSeed(TCNT1);
@@ -123,6 +133,9 @@ class Snake {
     printSnake();                         //Schlange ausgeben
     tasten.clearAllButtons();
     foodTime = 0;                         //food timer auf 0
+    myDFPlayer.stop();
+    myDFPlayer.volume(14);  //Set volume value. From 0 to 30
+    myDFPlayer.loop(THEME);
     moveTime = moveTimeout;               //move timer auf 0 ACHTUNG! BEENDET SPIEL SOFORT!!!
   }
 //blink
