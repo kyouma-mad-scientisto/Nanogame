@@ -74,9 +74,11 @@ class Snake {
   }
 //Spiel vorbei
   gameOver() {
+#ifdef SOUND
     myDFPlayer.stop();
     myDFPlayer.volume(24);  //Set volume value. From 0 to 30
     myDFPlayer.play(END);
+#endif
     clearField();
     printField();
     lcd.printOut("Game over!", 1, 11);
@@ -117,8 +119,10 @@ class Snake {
     lcd.printOut("Druecke Start",2, 3);
     lcd.writeRect(0,6,83,11,false);
     lcd.renderLine(); 
+#ifdef SOUND
     myDFPlayer.volume(30);  //Set volume value. From 0 to 30
     myDFPlayer.loop(INTRO);
+#endif
     while(!tasten.getButtonCycle(buttonStart)) {
     }
     randomSeed(TCNT1);
@@ -133,9 +137,11 @@ class Snake {
     printSnake();                         //Schlange ausgeben
     tasten.clearAllButtons();
     foodTime = 0;                         //food timer auf 0
+#ifdef SOUND
     myDFPlayer.stop();
     myDFPlayer.volume(14);  //Set volume value. From 0 to 30
     myDFPlayer.loop(THEME);
+#endif
     moveTime = moveTimeout;               //move timer auf 0 ACHTUNG! BEENDET SPIEL SOFORT!!!
   }
 //blink

@@ -23,9 +23,12 @@ void setup() {
   lcd.clear();
 //erster Taster check
   tasten.checkButtons();
+//DFPlayer mini initialisieren
+#ifdef SOUND
   Serial.begin(9600);   //set speed for Hardware  Serial pin 1 and 2 tx/rx
   myDFPlayer.begin(Serial);//select Serial to send comand to dfplayer
   myDFPlayer.EQ(DFPLAYER_EQ_ROCK);
+#endif
   snake.startGame();
 }
 //Endlosschleife
