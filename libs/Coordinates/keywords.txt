@@ -1,0 +1,27 @@
+#######################################
+# Syntax Coloring Map For NanoGame
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+Coordinates	KEYWORD1
+
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+Coordinates	KEYWORD2
+getX		KEYWORD2
+getY		KEYWORD2
+setCoordinates	KEYWORD2
+
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+#		LITERAL1
+
