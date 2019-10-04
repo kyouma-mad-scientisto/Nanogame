@@ -25,6 +25,10 @@ class Snake {
     Coordinates foodPosition;             //enthaelt die koordinaten des essens
     bool noFood;                          //gibt es noch essen?
     uint16_t foodTime;                    //timer fuer das essen der Schlange
+
+    uint8_t storedBrightness;
+    uint16_t blinkTime;
+    bool blinkBL;
     
     uint16_t moveTime;                    //timer fuer die Bewegung der Schlange
     uint8_t moveDirection;                //signalisiert die Richtung in die die Schlange kriecht
@@ -36,6 +40,7 @@ class Snake {
 //Timeouts
     const uint16_t moveTimeout = 180;     //Zeit bis sich die Schlange um ein Segment nach vorn bewegt, in millisekunden
     const uint16_t foodTimeout = 6000;    //Zeit bis das Futter verschwindet und neues erscheint, in millisekunden
+    const uint16_t blinkBLtimeout = 500;
   
   public:
   Snake() {}
@@ -56,6 +61,10 @@ class Snake {
     if(isSnakeCrossing() || tasten.getButtonCycle(buttonSelect)) {  //kreuzt sich die Schlange? Will der Nutzer das Spiel beenden?
       gameOver();
       startGame();
+    }
+    if(blinkBL && (blinkTime >= blinkBLtimeout)) {
+      BRIGHTNESS = storedBrightness;
+      blinkBL = false;
     }
   }
 //Spiel vorbei
@@ -90,6 +99,7 @@ class Snake {
   }
 //Spiel initialisieren
   startGame() {
+    blinkBL = false;
     points = 0;
     noFood = false;
     foodTime = 0;
@@ -115,6 +125,15 @@ class Snake {
     foodTime = 0;                         //food timer auf 0
     moveTime = moveTimeout;               //move timer auf 0 ACHTUNG! BEENDET SPIEL SOFORT!!!
   }
+//blink
+inline blinkBacklight() {
+  if(!blinkBL) {
+    storedBrightness = BRIGHTNESS;
+    BRIGHTNESS = 255;
+    blinkBL = true;
+    blinkTime = 0;
+  }
+}
 //highscore speichern und Liste laden
   highscore() {
     long verify;
@@ -152,6 +171,7 @@ class Snake {
   extendSnake() {
     if((foodPosition.getX() == headPosition.getX()) && (foodPosition.getY() == headPosition.getY())) {
       tailIndex++;
+      blinkBacklight();
       for(int16_t i = tailIndex - 1; i > 0; i--) {
         segmente[i] = segmente[i-1];
       }
@@ -276,10 +296,10 @@ class Snake {
     bool insideSnake = true;
     uint8_t tempX;
     uint8_t tempY;
-    while(insideSnake) {
+    while(insideSnake) {                              //neues Futter immernoch innerhalb der Schlange?
       insideSnake = false;
-      tempX = (uint8_t)random(X_RESOLUTION - 1);
-      tempY = (uint8_t)random(Y_RESOLUTION - 1);
+      tempX = (uint8_t)random(X_RESOLUTION - 1);      //dann erzeuge Futter an anderer Stelle
+      tempY = (uint8_t)random(Y_RESOLUTION - 1);      //
       if((headPosition.getX() == tempX) && (headPosition.getY() == tempY)) {
         insideSnake = true;
       }
@@ -294,6 +314,7 @@ class Snake {
   inline increaseTimer() {
     foodTime++;
     moveTime++;
+    blinkTime++;
   }
 };
 //############################################################################################################################################################################

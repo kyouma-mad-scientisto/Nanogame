@@ -30,7 +30,7 @@ void loop() {
   snake.runningGame();
 }
 
-ISR(TIMER2_COMPA_vect) { // called by timer1
+ISR(TIMER2_COMPA_vect) { // called by timer2
   tasten.checkButtons();  //Aufruf 1-mal pro Millisekunde
   snake.increaseTimer();
 }
