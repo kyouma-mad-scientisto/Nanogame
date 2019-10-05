@@ -8,17 +8,17 @@
 //LCD Aufloesung
 #define X_LCD_RESOLUTION 84
 #define Y_LCD_RESOLUTION 48
-
+//Spielfeld
 #define BLOCK_SIZE 3                      //groesse der Spielfeldbloecke
-
 #define X_RESOLUTION X_LCD_RESOLUTION / BLOCK_SIZE    // 84 / 3  = 28
 #define Y_RESOLUTION Y_LCD_RESOLUTION / BLOCK_SIZE    // 48 / 3  = 16
-
+//EEPROM
 #define VERIFICATION 0xff234597           //testen, ob bereits in den EEPROM geschrieben wurde
 //AUDIO
-#define INTRO 1
-#define THEME 2
-#define END 3
+#define INTRO 2
+#define THEME 3
+#define END 4
+#define GULP 1
 
 //############################################################################################################################################################################
 class Snake {
@@ -195,7 +195,10 @@ inline blinkBacklight() {
         segmente[i] = segmente[i-1];
       }
       points += foodTime;
-      noFood = true;
+      noFood = true; /*
+#ifdef SOUND
+    myDFPlayer.play(GULP);
+#endif */
     }
   }
 //Richtung wechseln
