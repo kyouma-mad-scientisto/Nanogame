@@ -1,0 +1,28 @@
+Pos.		Bezeichnung/Bauform			Wert		Menge
+
+1		DFPlayerMini				-		1
+2		SMD Elektrolytkondensator		16V/100µF	2
+3		Schottky-Diode				40V/1A		1
+4		Keramikkondensator/0603			50V/100nF	10
+5		Diode 1N4001/1206			50V/1A		11
+6		SMD Taster 6x6mm			-		9
+7		SMD Taster 6x3mm			-		2
+8		PCD8544 LCD				Vcc = 3,3V	1
+9		Brücken/1206				0 Ohm		12
+10		IRLML2502PBF/SOT23			-		1
+11		Widerstand/0603				85 Ohm		1
+12		AMS1117-3.3				3,3V LDO	1
+13		Keramikkondensator/1206			25V/10µF	2
+14		Widerstand/0603				100kOhm		1
+15		Widerstand/0603				200kOhm		1
+16		JST Steckbuchse				2pol.		1
+17		Schalter				2 Wechsler	1
+18		Li-Ion Lademodul			500mA		1
+19		Aufwärtsschaltspannungswandlermodul	5V/200mA	1
+20		Widerstand/0603				1kOhm		2
+21		microSD Kartenslot 			Retention	1
+22		Arduino Nano 				Atmega328p	1
+23		74HC595D Schieberegister		-		2
+24		Pegelwandler TXS0108EPWR		bidirektional	1
+25		Steckerleiste				16 pol. (2x8)	1
+26		Widerstand/0603				10kOhm		1		<--- wurde auf 10kOhm geändert, im Layout als 200kOhm für Taster Eingang
